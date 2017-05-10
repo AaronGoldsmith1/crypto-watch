@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Use different database URIs based on whether an env var exists.
-let dbUri = dbUri = process.env.MONGODB_URI ||
+let dbUri = process.env.MONGODB_URI ||
   'mongodb://localhost/' + process.env.LOCAL_DB;
 
 if (!process.env.MONGODB_URI) {
@@ -11,7 +11,7 @@ if (!process.env.MONGODB_URI) {
     process.exit(0);
   });
 }
-
+console.log("Connect to mongo", dbUri);
 mongoose.connect(dbUri);
 
 module.exports = mongoose;

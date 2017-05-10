@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
+// API Routes, respond with JSON only
 
 usersRouter.route('/')
   .post(usersController.create)

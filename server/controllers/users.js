@@ -32,14 +32,14 @@ function me(req, res, next) {
     .findOne({
       email: req.decoded.email
     }).exec()
-    .then(function(user) {
+    .then(user => {
       res.json({
         success: true,
         message: 'Successfully retrieved user data.',
         data: user
       });
     })
-    .catch(function(err) {
+    .catch(err => {
       next(err);
     });
 }

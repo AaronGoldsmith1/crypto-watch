@@ -4,15 +4,14 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
-const routes = require('./config/routes');
-
-const app = express();
 
 // Load env variables from .env file
 require('dotenv').config();
 
+const routes = require('./config/routes');
+const mongoose = require('./config/database');
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,10 +27,10 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
+app.use('/api/users', routes.users);
 app.use('/', routes.other);
-//app.use('/api/users', routes.users);
+
+//app.use(addFailedAuthHeader);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
