@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 // Use different database URIs based on whether an env var exists.
-let dbUri = process.env.MONGODB_URI ||
-  'mongodb://localhost/crypto-watch';
+let dbUri = dbUri = process.env.MONGODB_URI ||
+  'mongodb://localhost/' + process.env.LOCAL_DB;
 
 if (!process.env.MONGODB_URI) {
   // check that MongoD is running...

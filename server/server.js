@@ -6,14 +6,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const routes = require('./config/routes');
 
 const app = express();
 
-//database connection
+// Load env variables from .env file
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost/localDatabaseName')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,8 +28,10 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+
+
+app.use('/', routes.other);
+//app.use('/api/users', routes.users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
