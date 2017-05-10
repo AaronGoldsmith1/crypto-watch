@@ -16,6 +16,17 @@ let userSchema = new mongoose.Schema({
   }]
 })
 
+// add bcrypt hashing to model (works on a password field)!
+// adds password digest
+userSchema.plugin(require('mongoose-bcrypt'));
+
+userSchema.options.toJSON = {
+  transform: function(document, returnedObject, options) {
+    delete returnedObject.password;
+    return returnedObject;
+  }
+};
+
 
 
 

@@ -6,11 +6,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 
+
 // Load env variables from .env file
 require('dotenv').config();
 
 const routes = require('./config/routes');
 const mongoose = require('./config/database');
+const token = require('./config/token_auth');
 const app = express();
 
 // view engine setup
@@ -32,6 +34,7 @@ app.use('/', routes.other);
 
 //app.use(addFailedAuthHeader);
 
+//TODO: update error handling middleware
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
