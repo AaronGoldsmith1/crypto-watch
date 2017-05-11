@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const request = require('request')
 const Coin = require('../models/Coin');
+const moment = require('moment')
+const ObjectId = require('mongodb').ObjectID;
 
 // Use different database URIs based on whether an env var exists.
 let dbUri = process.env.MONGODB_URI ||
@@ -15,19 +17,25 @@ if (!process.env.MONGODB_URI) {
   });
 }
 
+function lessThanFiveMinAgo(date) {
+  return moment(date).isAfter(moment().subtract(5, 'minutes'));
+}
+
+ObjectId.prototype.getTimestamp = function() {
+  return new Date(parseInt(this.toString().slice(0, 8), 16) * 1000);
+}
+
 mongoose.connect(dbUri);
-
-
-
 mongoose.connection.on('connected', function() {
-  //TODO: check if it's been longer than 2 hrs since last request
   console.log('Mongoose default connection open to ' + dbUri);
+
+
+
   request.get('https://api.coinmarketcap.com/v1/ticker/', function(err, res, body) {
     if (err) {
       throw err
     }
     let myData = JSON.parse(body)
-
     myData.forEach(function(marketCoin) {
       let coinToSave = {
         id: marketCoin.id,
@@ -43,15 +51,14 @@ mongoose.connection.on('connected', function() {
         percent_change_1h: marketCoin.percent_change_1h,
         percent_change_24h: marketCoin.percent_change_24h,
         percent_change_7d: marketCoin.percent_change_7d,
-        last_updated: marketCoin.last_updated
       }
 
-      Coin.create(coinToSave, function(err, coinToSave) {
+      Coin.create(coinToSave, (err, coinToSave) => {
         if (err) return console.log(err)
-        console.log('coin save!: ', coinToSave)
-      //res.json(coinToSave)
       })
+
     })
+
   });
 });
 

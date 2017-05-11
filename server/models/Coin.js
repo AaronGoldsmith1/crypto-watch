@@ -42,15 +42,14 @@ let coinSchema = new mongoose.Schema({
   percent_change_7d: {
     type: Number
   },
-  last_updated: {
-    type: Date
-  },
   amount_owned: {
     type: Number
   },
   current_balance: {
     type: Number
   }
+}, {
+  timestamps: true
 })
 
 let Coin = mongoose.model('Coin', coinSchema)
