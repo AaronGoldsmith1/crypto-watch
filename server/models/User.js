@@ -27,9 +27,5 @@ userSchema.options.toJSON = {
   }
 };
 
-
-
-
-
 let User = mongoose.model('User', userSchema);
 module.exports = User;
