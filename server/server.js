@@ -5,9 +5,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-
-
-// Load env variables from .env file
 require('dotenv').config();
 
 const routes = require('./config/routes');

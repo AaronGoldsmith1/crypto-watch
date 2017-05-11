@@ -25,9 +25,7 @@ function create(req, res, next) {
   })
 }
 
-
 function me(req, res, next) {
-
   User
     .findOne({
       email: req.decoded.email
@@ -43,7 +41,6 @@ function me(req, res, next) {
       next(err);
     });
 }
-
 
 module.exports = {
   create: create,
