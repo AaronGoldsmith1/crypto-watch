@@ -18,11 +18,7 @@ if (!process.env.MONGODB_URI) {
 }
 
 function lessThanFiveMinAgo(date) {
-  return moment(date).isAfter(moment().subtract(5, 'minutes'));
-}
-
-ObjectId.prototype.getTimestamp = function() {
-  return new Date(parseInt(this.toString().slice(0, 8), 16) * 1000);
+  return moment(date).isAfter(moment().subtract(5, 'hours'));
 }
 
 mongoose.connect(dbUri);

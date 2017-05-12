@@ -45,7 +45,7 @@ let coinSchema = new mongoose.Schema({
   amount_owned: {
     type: Number
   },
-  current_balance: {
+  current_dollar_balance: {
     type: Number
   }
 }, {
