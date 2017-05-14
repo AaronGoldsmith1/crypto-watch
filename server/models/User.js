@@ -9,10 +9,7 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  list: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'List'
-  }]
+  list: []
 })
 
 // add bcrypt hashing to model (works on a password field)!
