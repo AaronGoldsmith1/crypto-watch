@@ -13,16 +13,10 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// API Routes, respond with JSON only
 
 listsRouter.route('/:id')
-  .put(listsController.update)
+  .get(listsController.show)
 
-listsRouter.route('/:id/coins')
-  .post(listsController.addCoin)
-
-listsRouter.route('/:id/coins/:coinId')
-  .delete(listsController.removeCoin)
 
 usersRouter.route('/')
   .post(usersController.create)
@@ -38,3 +32,14 @@ module.exports = {
   lists: listsRouter,
   other: router
 }
+
+
+
+// listsRouter.route('/:id')
+//   .put(listsController.update)
+//
+// listsRouter.route('/:id/coins')
+//   .post(listsController.addCoin)
+//
+// listsRouter.route('/:id/coins/:coinId')
+//   .delete(listsController.removeCoin)

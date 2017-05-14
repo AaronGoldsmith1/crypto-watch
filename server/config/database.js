@@ -25,37 +25,37 @@ mongoose.connect(dbUri);
 mongoose.connection.on('connected', function() {
   console.log('Mongoose default connection open to ' + dbUri);
 
+  //drop collection first!
 
-
-  request.get('https://api.coinmarketcap.com/v1/ticker/', function(err, res, body) {
-    if (err) {
-      throw err
-    }
-    let myData = JSON.parse(body)
-    myData.forEach(function(marketCoin) {
-      let coinToSave = {
-        id: marketCoin.id,
-        name: marketCoin.name,
-        symbol: marketCoin.symbol,
-        rank: marketCoin.rank,
-        price_usd: marketCoin.price_usd,
-        price_btc: marketCoin.price_btc,
-        daily_volume_usd: marketCoin.daily_volume_usd,
-        market_cap_usd: marketCoin.market_cap_usd,
-        available_supply: marketCoin.available_supply,
-        total_supply: marketCoin.total_supply,
-        percent_change_1h: marketCoin.percent_change_1h,
-        percent_change_24h: marketCoin.percent_change_24h,
-        percent_change_7d: marketCoin.percent_change_7d,
-      }
-
-      Coin.create(coinToSave, (err, coinToSave) => {
-        if (err) return console.log(err)
-      })
-
-    })
-
-  });
+// request.get('https://api.coinmarketcap.com/v1/ticker/', function(err, res, body) {
+//   if (err) {
+//     throw err
+//   }
+//   let myData = JSON.parse(body)
+//   myData.forEach(function(marketCoin) {
+//     let coinToSave = {
+//       id: marketCoin.id,
+//       name: marketCoin.name,
+//       symbol: marketCoin.symbol,
+//       rank: marketCoin.rank,
+//       price_usd: marketCoin.price_usd,
+//       price_btc: marketCoin.price_btc,
+//       daily_volume_usd: marketCoin.daily_volume_usd,
+//       market_cap_usd: marketCoin.market_cap_usd,
+//       available_supply: marketCoin.available_supply,
+//       total_supply: marketCoin.total_supply,
+//       percent_change_1h: marketCoin.percent_change_1h,
+//       percent_change_24h: marketCoin.percent_change_24h,
+//       percent_change_7d: marketCoin.percent_change_7d,
+//     }
+//
+//     Coin.create(coinToSave, (err, coinToSave) => {
+//       if (err) return console.log(err)
+//     })
+//
+//   })
+//
+// });
 });
 
 
