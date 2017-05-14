@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const List = require('../models/List');
+const Coin = require('../models/Coin')
 const _ = require('lodash');
 const mongoose = require('mongoose')
 
@@ -15,23 +16,27 @@ function show(req, res, next) {
 function addCoin(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
-  })
 
-  let mongoId = new mongoose.Types.ObjectId(req.body.coinId)
-  user.list.coins.push(req.body.coinId)
-  user.list.save(function(err, playlist) {
-    if (err) return console.log(err)
-    res.json(playlist)
-  })
+    Coin.findById(req.body.coinId, function(err, coin) {
+      let copyCoin = coin
+      copyCoin._id = new mongoose.Types.ObjectId()
+      user.list.push(copyCoin)
+      console.log(user.list)
 
+      user.save(function(err, list) {
+        if (err) return console.log(err)
+        res.json(user.list)
+      })
+    })
+  })
 }
 
 function removeCoin(req, res, next) {
-  List.findById(req.params.id, function(err, list) {
+  User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
   })
 
-  list.coins = _.remove(list.coins, req.params.coinId);
+  user.list = _.remove(user.list, req.params.coinId);
   list.save({
     new: true,
     safe: true

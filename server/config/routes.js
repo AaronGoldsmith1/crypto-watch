@@ -17,6 +17,9 @@ router.get('/', function(req, res, next) {
 listsRouter.route('/:id')
   .get(listsController.show)
 
+listsRouter.route('/:id/coins')
+  .post(listsController.addCoin)
+
 
 usersRouter.route('/')
   .post(usersController.create)
@@ -38,8 +41,6 @@ module.exports = {
 // listsRouter.route('/:id')
 //   .put(listsController.update)
 //
-// listsRouter.route('/:id/coins')
-//   .post(listsController.addCoin)
-//
+
 // listsRouter.route('/:id/coins/:coinId')
 //   .delete(listsController.removeCoin)
