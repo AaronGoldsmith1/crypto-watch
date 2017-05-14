@@ -20,6 +20,9 @@ listsRouter.route('/:id')
 listsRouter.route('/:id/coins')
   .post(listsController.addCoin)
 
+listsRouter.route('/:id/coins/:coinId')
+  .delete(listsController.removeCoin)
+
 
 usersRouter.route('/')
   .post(usersController.create)
@@ -41,6 +44,3 @@ module.exports = {
 // listsRouter.route('/:id')
 //   .put(listsController.update)
 //
-
-// listsRouter.route('/:id/coins/:coinId')
-//   .delete(listsController.removeCoin)
