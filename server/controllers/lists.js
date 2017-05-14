@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const List = require('../models/List');
 const Coin = require('../models/Coin')
 const _ = require('lodash');
 const mongoose = require('mongoose')
@@ -18,9 +17,13 @@ function addCoin(req, res, next) {
     if (err) return console.log(err)
     Coin.findById(req.body.coinId, function(err, coin) {
       // coin._id = new ObjectId()
+      if (user.list.indexOf(coin) === -1) {
+        console.log(err)
+      } else {
+        user.list.push(coin)
+        console.log(user.list)
+      }
 
-      user.list.push(coin)
-      console.log(user.list)
 
       user.save(function(err, list) {
         if (err) return console.log(err)
