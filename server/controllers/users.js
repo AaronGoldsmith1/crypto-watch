@@ -28,7 +28,7 @@ function create(req, res, next) {
 function me(req, res, next) {
   User
     .findOne({
-      email: req.decoded.email
+      email: req.body.email
     }).exec()
     .then(user => {
       res.json({

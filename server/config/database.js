@@ -25,8 +25,8 @@ mongoose.connect(dbUri);
 mongoose.connection.on('connected', function() {
   console.log('Mongoose default connection open to ' + dbUri);
 
-  //drop collection first!
 
+//
 // request.get('https://api.coinmarketcap.com/v1/ticker/', function(err, res, body) {
 //   if (err) {
 //     throw err
@@ -48,7 +48,7 @@ mongoose.connection.on('connected', function() {
 //       percent_change_24h: marketCoin.percent_change_24h,
 //       percent_change_7d: marketCoin.percent_change_7d,
 //     }
-//
+//    //update only
 //     Coin.create(coinToSave, (err, coinToSave) => {
 //       if (err) return console.log(err)
 //     })

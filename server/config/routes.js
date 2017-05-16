@@ -20,6 +20,10 @@ listsRouter.route('/:id')
 listsRouter.route('/:id/coins')
   .post(listsController.addCoin)
 
+// listsRouter.route('/:id')
+  //   .put(listsController.update)
+
+
 listsRouter.route('/:id/coins/:coinId')
   .delete(listsController.removeCoin)
 
@@ -27,11 +31,11 @@ listsRouter.route('/:id/coins/:coinId')
 usersRouter.route('/')
   .post(usersController.create)
 
-router.route('/api/token')
-  .post(token.create)
+// router.route('/api/token')
+  //   .post(token.create)
 
 usersRouter.route('/me')
-  .get(token.authenticate, usersController.me)
+  .get(usersController.me)
 
 module.exports = {
   users: usersRouter,

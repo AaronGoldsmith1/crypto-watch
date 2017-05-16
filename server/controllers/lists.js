@@ -4,6 +4,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose')
 
 
+
 function show(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
@@ -12,13 +13,23 @@ function show(req, res, next) {
 }
 
 function addCoin(req, res, next) {
+  let indexOfCoin;
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
-    Coin.findById(req.body.coinId, function(err, coin) {
-      // if (user.list.indexOf(coin) === -1) {
-      user.list.push(coin)
-      // }
-      //TODO: Prevent adding duplicates to list
+    Coin.findOne({
+      id: req.body.coinId
+    }, function(err, coin) {
+      for (let i = 0; i < user.list.length; i++) {
+        if (user.list[i].id !== coin.id) {
+          indexOfCoin = i;
+        }
+      }
+      if (indexOfCoin === user.list.length - 1) {
+        console.log(indexOfCoin)
+        coin._id = mongoose.Types.ObjectId()
+        coin.isNew = true;
+        user.list.push(coin)
+      }
       user.save(function(err, list) {
         if (err) return console.log(err)
         res.json(user.list)
@@ -27,12 +38,17 @@ function addCoin(req, res, next) {
   })
 }
 
+
 function removeCoin(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
     Coin.findById(req.params.coinId, function(err, coin) {
-      user.list.splice(user.list.indexOf(coin), 1)
-      // user.list = _.remove(user.list, req.params.coinId);
+      console.log(user.list[0])
+      //user.list.splice(user.list.indexOf(coin), 1)
+      _.remove(user.list, function(coins) {
+        console.log(coins)
+        return coins._id === req.params.coinId
+      });
       user.save({
         new: true,
         safe: true
