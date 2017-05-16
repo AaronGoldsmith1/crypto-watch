@@ -42,13 +42,15 @@ function addCoin(req, res, next) {
 function removeCoin(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
-    Coin.findById(req.params.coinId, function(err, coin) {
-      console.log(user.list[0])
-      //user.list.splice(user.list.indexOf(coin), 1)
-      _.remove(user.list, function(coins) {
-        console.log(coins)
-        return coins._id === req.params.coinId
-      });
+    Coin.findOne({
+      id: req.body.coinId
+    }, function(err, coin) {
+      console.log(coin)
+      for (let i = 0; i < user.list.length; i++) {
+        if (user.list[i].id === coin.id) {
+          user.list.splice(user.list.indexOf(i), 1)
+        }
+      }
       user.save({
         new: true,
         safe: true
