@@ -45,7 +45,7 @@ let coinSchema = new mongoose.Schema({
   amount_owned: {
     type: Number,
     default: 0
-  }
+  },
 }, {
   timestamps: true
 })

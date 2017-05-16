@@ -25,7 +25,6 @@ function addCoin(req, res, next) {
         }
       }
       if (indexOfCoin === user.list.length - 1) {
-        console.log(indexOfCoin)
         coin._id = mongoose.Types.ObjectId()
         coin.isNew = true;
         user.list.push(coin)
@@ -37,6 +36,25 @@ function addCoin(req, res, next) {
     })
   })
 }
+
+function update(req, res, next) {
+  User.findOne(req.params.id, function(err, user) {
+    if (err) return console.log(err)
+    for (let i = 0; i < user.list.length; i++) {
+      if (user.list[i].id === req.body.coinId) {
+        //NOT SAVING TO DB
+        user.list[i].amount_owned = req.body.amount_owned
+        console.log('GOTTA UPDATE', user.list[i])
+      }
+      console.log('GOTTA UPDATE', user.list[i])
+    }
+    user.save(function(err, user) {
+      if (err) return console.log(err)
+      res.json(user.list)
+    })
+  })
+}
+
 
 
 function removeCoin(req, res, next) {
@@ -65,5 +83,6 @@ function removeCoin(req, res, next) {
 module.exports = {
   show: show,
   addCoin: addCoin,
+  update: update,
   removeCoin: removeCoin,
 };
