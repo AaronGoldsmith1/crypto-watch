@@ -2,14 +2,33 @@ const User = require('../models/User');
 const Coin = require('../models/Coin')
 const mongoose = require('mongoose')
 
-
-
 function show(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
     res.json(user.list)
   })
 }
+
+function findCoins(req, res, next) {
+  Coin.find(
+    {
+      "name": {
+        "$regex": req.params.name,
+        "$options": "i"
+      }
+    },
+    function(err, docs) {
+      res.json(docs)
+    }
+  );
+  // User.findById(req.params.id, function(err, user) {
+  //   if (err) return console.log(err)
+  //   res.json(user.list)
+  // })
+
+}
+
+
 
 function addCoin(req, res, next) {
   let indexOfCoin;
@@ -55,8 +74,6 @@ function update(req, res, next) {
   })
 }
 
-
-//not working
 function removeCoin(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
@@ -82,6 +99,7 @@ function removeCoin(req, res, next) {
 
 module.exports = {
   show: show,
+  findCoins: findCoins,
   addCoin: addCoin,
   update: update,
   removeCoin: removeCoin,

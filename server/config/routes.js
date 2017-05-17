@@ -17,6 +17,9 @@ router.get('/', function(req, res, next) {
 listsRouter.route('/:id')
   .get(listsController.show)
 
+listsRouter.route('/search/:name')
+  .get(listsController.findCoins)
+
 listsRouter.route('/:id/coins')
   .post(listsController.addCoin)
 
