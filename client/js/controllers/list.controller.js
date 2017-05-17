@@ -13,6 +13,12 @@ function listController(listRepo, $stateParams) {
     })
   }
 
+  self.addCoinToList = function(coin) {
+    listRepo.addCoin(self.user._id, coin._id).then(function(res) {
+      self.list.push(coin)
+    })
+  }
+
   listRepo.get($stateParams.id).then(function(res) {
     self.list = res.data;
   });

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Coin = require('../models/Coin')
+const coinSchema = Coin.schema
+
 
 let userSchema = new mongoose.Schema({
   name: {
@@ -9,7 +12,7 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  list: []
+  list: [coinSchema]
 })
 
 // add bcrypt hashing to model (works on a password field)!
