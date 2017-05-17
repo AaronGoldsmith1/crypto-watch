@@ -19,13 +19,7 @@ function findCoins(req, res, next) {
     },
     function(err, docs) {
       res.json(docs)
-    }
-  );
-  // User.findById(req.params.id, function(err, user) {
-  //   if (err) return console.log(err)
-  //   res.json(user.list)
-  // })
-
+    });
 }
 
 
