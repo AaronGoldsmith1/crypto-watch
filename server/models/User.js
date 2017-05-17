@@ -15,8 +15,7 @@ let userSchema = new mongoose.Schema({
   list: [coinSchema]
 })
 
-// add bcrypt hashing to model (works on a password field)!
-// adds password digest
+// add password digest
 userSchema.plugin(require('mongoose-bcrypt'));
 
 userSchema.options.toJSON = {
