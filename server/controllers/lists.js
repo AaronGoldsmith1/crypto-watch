@@ -22,8 +22,6 @@ function findCoins(req, res, next) {
     });
 }
 
-
-
 function addCoin(req, res, next) {
   let indexOfCoin;
   User.findById(req.params.id, function(err, user) {
@@ -41,7 +39,6 @@ function addCoin(req, res, next) {
         coin._id = mongoose.Types.ObjectId()
         coin.isNew = true;
         user.list.push(coin)
-        console.log(coin)
       }
       user.save(function(err, list) {
         if (err) return console.log(err)
@@ -74,7 +71,7 @@ function removeCoin(req, res, next) {
     Coin.findOne({
       id: req.body.coinId
     }, function(err, coin) {
-      console.log(coin)
+      if (err) return console.log(err)
       for (let i = 0; i < user.list.length; i++) {
         if (user.list[i].id === coin.id) {
           user.list.splice(user.list.indexOf(i), 1)

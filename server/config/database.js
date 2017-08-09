@@ -9,13 +9,13 @@ let dbUri = process.env.MONGODB_URI ||
   'mongodb://localhost/' + process.env.LOCAL_DB;
 
 
-if (!process.env.MONGODB_URI) {
-  // check that MongoD is running...
-  require('net').connect(27017, 'localhost').on('error', () => {
-    console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
-    process.exit(0);
-  });
-}
+// if (!process.env.MONGODB_URI) {
+  //   // check that MongoD is running...
+  //   require('net').connect(27017, 'localhost').on('error', () => {
+  //     console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
+  //     process.exit(0);
+  //   });
+  // }
 
 function lessThanFiveMinAgo(date) {
   return moment(date).isAfter(moment().subtract(5, 'hours'));
@@ -26,7 +26,7 @@ mongoose.connection.on('connected', function() {
   console.log('Mongoose default connection open to ' + dbUri);
 
 
-
+// CRON JOB + updateAll!!
 // request.get('https://api.coinmarketcap.com/v1/ticker/', function(err, res, body) {
 //   if (err) {
 //     throw err

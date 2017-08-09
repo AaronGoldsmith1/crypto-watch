@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
 listsRouter.route('/:id')
   .get(listsController.show)
 
@@ -26,10 +25,8 @@ listsRouter.route('/:id/coins')
 listsRouter.route('/:id/coins')
   .put(listsController.update)
 
-
 listsRouter.route('/:id/coins')
   .delete(listsController.removeCoin)
-
 
 usersRouter.route('/')
   .post(usersController.create)

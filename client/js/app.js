@@ -2,7 +2,12 @@
 
 
   var app = angular.module('CryptoWatch', ['ngMaterial', 'md.data.table']);
+  app.config(['$mdThemingProvider', function($mdThemingProvider) {
+    'use strict';
 
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue');
+  }])
 
   app.factory('ListRepo', function($http) {
     const baseUrl = 'http://localhost:3000/api/lists/';
@@ -44,14 +49,11 @@
 
     ListRepo.get('59192ebfc8ca0c09706f50b0').then(function(data) {
       console.log(data)
-
       $scope.coins = data.data;
-    // $scope.suggestions = data.data;
     })
 
     $scope.getSuggestions = function() {
       ListRepo.search($scope.currentModel).then(function(data) {
-
         $scope.suggestions = data.data;
       })
     }
@@ -61,17 +63,20 @@
     $scope.suggestions = []
     $scope.selected = [];
 
+
     $scope.query = {
       order: 'name',
       limit: 5,
       page: 1
     };
-  });
 
+  });
 
 
   document.addEventListener("DOMContentLoaded", function() {
     angular.bootstrap(document.body, ['CryptoWatch']);
   });
+
+
 
 }());
