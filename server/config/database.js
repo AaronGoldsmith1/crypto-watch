@@ -9,13 +9,13 @@ let dbUri = process.env.MONGODB_URI ||
   'mongodb://localhost/' + process.env.LOCAL_DB;
 
 
-// if (!process.env.MONGODB_URI) {
-  //   // check that MongoD is running...
-  //   require('net').connect(27017, 'localhost').on('error', () => {
-  //     console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
-  //     process.exit(0);
-  //   });
-  // }
+if (!process.env.MONGODB_URI) {
+  // check that MongoD is running...
+  require('net').connect(27017, 'localhost').on('error', () => {
+    console.log("YOU MUST BOW BEFORE THE MONGOD FIRST, MORTAL!");
+    process.exit(0);
+  });
+}
 
 function lessThanFiveMinAgo(date) {
   return moment(date).isAfter(moment().subtract(5, 'hours'));
