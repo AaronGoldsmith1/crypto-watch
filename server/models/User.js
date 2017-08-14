@@ -12,7 +12,10 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  list: [String]
+  list: [{
+    'id': String, //bitcoin, dogecoin, etc
+    'amount_owned': Number
+  }]
 })
 
 // add password digest

@@ -1,11 +1,29 @@
 const User = require('../models/User');
-const Coin = require('../models/Coin')
-const mongoose = require('mongoose')
+const Coin = require('../models/Coin');
+const mongoose = require('mongoose');
 
 function show(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
-    res.json(user.list)
+    var coinData = [];
+
+    user.list.forEach((coin) => {
+      //use coin id string to find document in DB
+      Coin.findOne({
+        id: coin.id
+      }, function(err, foundCoin) {
+        //coin['market_cap_usd'] = foundCoin.market_cap_usd || "Not Set";
+        coinData.push({
+          'id': coin.id,
+          'amount_owned': coin.amount_owned,
+          'market_cap_usd': foundCoin.market_cap_usd
+        });
+
+        if (coinData.length == user.list.length) {
+          res.json(coinData)
+        }
+      })
+    })
   })
 }
 
@@ -29,6 +47,8 @@ function addCoin(req, res, next) {
     Coin.findOne({
       id: req.body.coinId
     }, function(err, coin) {
+
+      // use indexOf
       for (let i = 0; i < user.list.length; i++) {
         if (user.list[i].id === coin.id) {
           indexOfCoin = i;
@@ -36,9 +56,10 @@ function addCoin(req, res, next) {
       }
       if (indexOfCoin !== user.list.length - 1) {
         //create copy of coin to add
-        coin._id = mongoose.Types.ObjectId()
-        coin.isNew = true;
-        user.list.push(coin)
+        user.list.push({
+          id: coin.id,
+          amount_owned: 0
+        })
       }
       user.save(function(err, list) {
         if (err) return console.log(err)
