@@ -3,7 +3,6 @@ const router = express.Router();
 const usersRouter = express.Router();
 const listsRouter = express.Router();
 
-const token = require('./token_auth');
 const usersController = require('../controllers/users');
 const listsController = require('../controllers/lists')
 
@@ -30,9 +29,6 @@ listsRouter.route('/:id/coins')
 
 usersRouter.route('/')
   .post(usersController.create)
-
-// router.route('/api/token')
-  //   .post(token.create)
 
 usersRouter.route('/me')
   .get(usersController.me)
