@@ -12,8 +12,7 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  //change to reference
-  list: [coinSchema]
+  list: [String]
 })
 
 // add password digest

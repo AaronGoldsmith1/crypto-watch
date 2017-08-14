@@ -9,6 +9,7 @@
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.3",
+    "cron": "^1.2.1",
     "debug": "~2.2.0",
     "dotenv": "^4.0.0",
     "ejs": "~2.5.2",
@@ -19,6 +20,7 @@
     "mongoose": "^4.9.8",
     "mongoose-bcrypt": "^1.4.2",
     "morgan": "~1.7.0",
+    "node-cron": "^1.2.1",
     "request": "^2.81.0",
     "serve-favicon": "~2.3.0"
   }
