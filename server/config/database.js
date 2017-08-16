@@ -34,16 +34,9 @@ function fetchData() {
           id: marketCoin.id,
           name: marketCoin.name,
           symbol: marketCoin.symbol,
-          rank: marketCoin.rank,
           price_usd: marketCoin.price_usd,
-          price_btc: marketCoin.price_btc,
-          daily_volume_usd: marketCoin.daily_volume_usd,
           market_cap_usd: marketCoin.market_cap_usd,
-          available_supply: marketCoin.available_supply,
-          total_supply: marketCoin.total_supply,
-          percent_change_1h: marketCoin.percent_change_1h,
-          percent_change_24h: marketCoin.percent_change_24h,
-          percent_change_7d: marketCoin.percent_change_7d,
+          percent_change_24h: marketCoin.percent_change_24
         }
         Coin.create(coinToSave, (err, coinToSave) => {
           if (err) return console.log(err)
