@@ -28,11 +28,14 @@ function listController($scope, ListRepo) {
     $scope.coins = data.data;
   })
 
-  $scope.getSuggestions = function() {
-    ListRepo.search($scope.currentModel).then(function(data) {
+  $scope.getSuggestions = _.debounce(function() {
+    console.log("Searching for ", $scope.currentModel);
+    var searchTerm = $scope.currentModel;
+    ListRepo.search(searchTerm).then(function(data) {
+      console.log("Search results for", searchTerm, data.data.length)
       $scope.suggestions = data.data;
     })
-  }
+  }, 500);
 
   $scope.selectedItem = undefined;
   $scope.currentModel = ''

@@ -6,6 +6,8 @@ const listsRouter = express.Router();
 const usersController = require('../controllers/users');
 const listsController = require('../controllers/lists')
 
+
+
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Crypto Watch'

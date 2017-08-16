@@ -33,13 +33,18 @@ function show(req, res, next) {
 function findCoins(req, res, next) {
   Coin.find(
     {
-      "name": {
+      name: {
         "$regex": req.params.name,
         "$options": "i"
       }
     },
     function(err, docs) {
-      res.json(docs)
+      if (err) {
+        console.log(err)
+      } else {
+        res.json(docs)
+
+      }
     });
 }
 
