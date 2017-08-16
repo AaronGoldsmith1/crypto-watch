@@ -5,20 +5,23 @@ const mongoose = require('mongoose');
 function show(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return console.log(err)
-    var coinData = [];
+    const coinData = [];
 
     user.list.forEach((coin) => {
       //use coin id string to find document in DB
       Coin.findOne({
         id: coin.id
       }, function(err, foundCoin) {
-        //coin['market_cap_usd'] = foundCoin.market_cap_usd || "Not Set";
+
         coinData.push({
           'id': coin.id,
           'amount_owned': coin.amount_owned,
-          'market_cap_usd': foundCoin.market_cap_usd
+          'market_cap_usd': foundCoin.market_cap_usd,
+          'name': foundCoin.name,
+          'symbol': foundCoin.symbol,
+          'price_usd': foundCoin.price_usd,
+          'percent_change_24h': foundCoin.percent_change_24h
         });
-
         if (coinData.length == user.list.length) {
           res.json(coinData)
         }
