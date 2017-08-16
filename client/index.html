@@ -26,70 +26,11 @@
     <script src="js/app.js"></script>
     <script src="js/repos/listRepo.js"></script>
     <script src="js/controllers/list.controller.js"></script>
+    <script src="js/controllers/auth.controller.js"></script>
 
 
   </head>
 <body>
-  <md-toolbar class="md-whiteframe-1dp">
-       <div class="md-toolbar-tools"  layout-align="center center">
-         <div class="md-title">Crypto Watch</div>
-       </div>
-     </md-toolbar>
-
-  <div ng-controller="ListController">
-    <md-toolbar class="md-table-toolbar md-default">
-      <div class="md-toolbar-tools">
-        <span>My Portfolio</span>
-
-      <span flex></span>
-        <md-autocomplete
-          md-selected-item="selectedItem"
-          md-search-text="currentModel"
-          md-items="item in suggestions"
-          style="width:100px"
-          md-search-text-change="getSuggestions()"
-          placeholder="Enter currency...">
-
-          <md-item-template>
-          <span md-highlight-text="currentModel" md-highlight-flags="^i">{{item.name}}</span>
-          </md-item-template>
-        <md-not-found>
-          No coins matching "{{currentModel}}" were found.
-        </md-not-found>
-      </md-autocomplete>
-      </div>
-    </md-toolbar>
-
-
-    <md-table-container>
-      <table md-table  ng-model="selected"  ng-init="coins.total = {}">
-        <thead md-head >
-          <tr md-row>
-            <th md-column ng-click="sortBy('name')"><span>Name</span></th>
-            <th md-column ng-click="sortBy('symbol')"><span>Symbol</span></th>
-            <th md-column ng-click="sortBy('price_usd')">Unit Price USD</th>
-            <th md-column ng-click="sortBy('market_cap_usd')">Market Cap USD</th>
-            <th md-column ng-click="sortBy('percent_change_24h')">24hr Change %</th>
-            <th md-column ng-click="sortBy('amount_owned')">Amount Owned</th>
-            <th md-column ng-click="sortBy('name')">USD Equiv.</th>
-          </tr>
-        </thead>
-        <tbody md-body>
-          <tr md-row  md-select-id="name" md-auto-select ng-repeat="coin in coins">
-            {{$index}}
-            <td md-cell>{{coin.name}}</td>
-            <td md-cell>{{coin.symbol}}</td>
-            <td md-cell>${{coin.price_usd}}</td>
-            <td md-cell>${{coin.market_cap_usd | number : fractionSize}}</td>
-            <td md-cell>{{coin.percent_change_24h}}</td>
-            <td md-cell>{{coin.amount_owned}}</td>
-            <td md-cell ng-init="coins.total.total_worth = coins.total.total_worth + (coin.amount_owned * coin.price_usd)">${{coin.amount_owned * coin.price_usd | number : 2}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </md-table-container>
-    <hr>
-    <span style="padding-left: 23px">Portfolio Total Value (USD): ${{coins.total.total_worth | number : 2}}</span>
-  </div>
+  <ng-view></ng-view>
 </body>
 </html>
