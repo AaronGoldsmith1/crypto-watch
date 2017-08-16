@@ -1,0 +1,20 @@
+{
+  "name": "aaron",
+  "homepage": "https://github.com/AaronGoldsmith1/crypto-watch",
+  "authors": [
+    "Aaron Goldsmith <aarongoldsmith@msn.com>"
+  ],
+  "description": "cryptowatch",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "angular": "1.6.5"
+  }
+}

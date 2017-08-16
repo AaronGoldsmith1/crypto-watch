@@ -3,7 +3,7 @@ angular.module('CryptoWatch')
 
 listRepo.inject = ['$http']
 
-function listsRepo($http) {
+function listRepo($http) {
   const baseUrl = 'http://localhost:3000/api/lists/';
   return {
     'get': function(userId) {
@@ -24,6 +24,9 @@ function listsRepo($http) {
         coinId: coinId,
         data: data
       })
-    }
+    },
+    'search': function(keyword) {
+      return $http.get(baseUrl + 'search/' + keyword);
+    },
   }
 }
