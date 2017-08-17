@@ -39,8 +39,6 @@ function fetchData() {
           percent_change_24h: marketCoin.percent_change_24h
         }
         Coin.create(coinToSave, (err, coinToSave) => {
-          console.log(coinToSave)
-
           if (err) return console.log(err)
         })
       })

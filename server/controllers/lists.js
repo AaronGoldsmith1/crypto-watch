@@ -12,7 +12,6 @@ function show(req, res, next) {
       Coin.findOne({
         id: coin.id
       }, function(err, foundCoin) {
-
         coinData.push({
           'id': coin.id,
           'amount_owned': coin.amount_owned,
@@ -55,7 +54,6 @@ function addCoin(req, res, next) {
     Coin.findOne({
       id: req.body.coinId
     }, function(err, coin) {
-
       // use indexOf
       for (let i = 0; i < user.list.length; i++) {
         if (user.list[i].id === coin.id) {
@@ -83,7 +81,7 @@ function update(req, res, next) {
   }, function(err, user) {
     if (err) return console.log(err)
     for (let i = 0; i < user.list.length; i++) {
-      if (user.list[i].id === req.body.coinId) {
+      if (user.list[i].id === req.body.id) {
         user.list[i].amount_owned = req.body.amount_owned
         user.save(function(err, user) {
           if (err) return console.log(err)
