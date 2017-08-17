@@ -36,9 +36,11 @@ function fetchData() {
           symbol: marketCoin.symbol,
           price_usd: marketCoin.price_usd,
           market_cap_usd: marketCoin.market_cap_usd,
-          percent_change_24h: marketCoin.percent_change_24
+          percent_change_24h: marketCoin.percent_change_24h
         }
         Coin.create(coinToSave, (err, coinToSave) => {
+          console.log(coinToSave)
+
           if (err) return console.log(err)
         })
       })
