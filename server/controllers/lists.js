@@ -84,26 +84,15 @@ function update(req, res, next) {
   }, function(err, user) {
     if (err) console.log(err)
     user.list.forEach((coin) => {
-      if (coin.id === req.params.coinId) {
+      if (coin.id === req.body.coinId) {
         coin.amount_owned = req.body.amount_owned
       }
+      user.save(function(err, user) {
+        if (err) console.log(err)
+        res.json(user.list)
+      })
     })
   })
-
-// User.findOne({
-//   _id: req.params.id
-// }, function(err, user) {
-//   if (err) return console.log(err)
-//   for (let i = 0; i < user.list.length; i++) {
-//     if (user.list[i].id === req.body.id) {
-//       user.list[i].amount_owned = req.body.amount_owned
-//       user.save(function(err, user) {
-//         if (err) return console.log(err)
-//         res.json(user.list)
-//       })
-//     }
-//   }
-// })
 }
 
 function removeCoin(req, res, next) {
