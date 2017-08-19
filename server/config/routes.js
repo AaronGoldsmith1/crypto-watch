@@ -25,7 +25,7 @@ listsRouter.route('/:id/coins')
   .post(listsController.addCoin)
 
 //update amount_owned field for single coin for user
-listsRouter.route('/:id/coins')
+listsRouter.route('/:id/coins/:coindId')
   .put(listsController.update)
 
 //delete coin from user list

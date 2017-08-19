@@ -14,6 +14,7 @@ function show(req, res, next) {
         Coin.findOne({
           id: coin.id
         }, function(err, foundCoin) {
+          if (err) return console.log(err)
           coinData.push({
             'id': coin.id,
             'amount_owned': coin.amount_owned,
@@ -29,11 +30,10 @@ function show(req, res, next) {
         })
       })
     }
-
-
   })
 }
 
+//TODO: FIX ME!
 function findCoins(req, res, next) {
   Coin.find(
     {
@@ -47,7 +47,6 @@ function findCoins(req, res, next) {
         console.log(err)
       } else {
         res.json(docs)
-
       }
     });
 }
@@ -66,7 +65,6 @@ function addCoin(req, res, next) {
         }
       }
       if (indexOfCoin !== user.list.length - 1) {
-        //create copy of coin to add
         user.list.push({
           id: coin.id,
           amount_owned: 0
@@ -81,7 +79,17 @@ function addCoin(req, res, next) {
 }
 
 function update(req, res, next) {
-  res.json('hello')
+  User.findOne({
+    _id: req.params.id
+  }, function(err, user) {
+    if (err) console.log(err)
+    user.list.forEach((coin) => {
+      if (coin.id === req.params.coinId) {
+        coin.amount_owned = req.body.amount_owned
+      }
+    })
+  })
+
 // User.findOne({
 //   _id: req.params.id
 // }, function(err, user) {
