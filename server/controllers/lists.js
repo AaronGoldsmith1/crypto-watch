@@ -33,16 +33,16 @@ function show(req, res, next) {
   })
 }
 
-//TODO: FIX ME!
-function findCoins(req, res, next) {
+
+function findCoins({params}, res, next) {
   Coin.find(
     {
       name: {
-        "$regex": req.params.name,
+        "$regex": params.name,
         "$options": "i"
       }
     },
-    function(err, docs) {
+    (err, docs) => {
       if (err) {
         console.log(err)
       } else {
@@ -51,26 +51,26 @@ function findCoins(req, res, next) {
     });
 }
 
-function addCoin(req, res, next) {
+function addCoin({params, body}, res, next) {
   let indexOfCoin;
-  User.findById(req.params.id, function(err, user) {
+  User.findById(params.id, (err, user) => {
     if (err) return console.log(err)
     Coin.findOne({
-      id: req.body.coinId
-    }, function(err, coin) {
+      id: body.coinId
+    }, (err, {id}) => {
       // use indexOf
       for (let i = 0; i < user.list.length; i++) {
-        if (user.list[i].id === coin.id) {
+        if (user.list[i].id === id) {
           indexOfCoin = i;
         }
       }
       if (indexOfCoin !== user.list.length - 1) {
         user.list.push({
-          id: coin.id,
+          id: id,
           amount_owned: 0
         })
       }
-      user.save(function(err, list) {
+      user.save((err, list) => {
         if (err) return console.log(err)
         res.json(user.list)
       })
@@ -78,41 +78,41 @@ function addCoin(req, res, next) {
   })
 }
 
-function update(req, res, next) {
+function update({params, body}, res, next) {
   User.findOne({
-    _id: req.params.id
-  }, function(err, user) {
+    _id: params.id
+  }, (err, user) => {
     if (err) console.log(err)
     user.list.forEach((coin) => {
-      if (coin.id === req.body.coinId) {
-        coin.amount_owned = req.body.amount_owned
+      if (coin.id === body.coinId) {
+        coin.amount_owned = body.amount_owned
       }
-      user.save(function(err, user) {
+      user.save((err, {list}) => {
         if (err) console.log(err)
-        res.json(user.list)
+        res.json(list)
       })
     })
   })
 }
 
-function removeCoin(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+function removeCoin({params, body}, res, next) {
+  User.findById(params.id, (err, user) => {
     if (err) return console.log(err)
     Coin.findOne({
-      id: req.body.coinId
-    }, function(err, coin) {
+      id: body.coinId
+    }, (err, {id}) => {
       if (err) return console.log(err)
       for (let i = 0; i < user.list.length; i++) {
-        if (user.list[i].id === coin.id) {
+        if (user.list[i].id === id) {
           user.list.splice(user.list.indexOf(i), 1)
         }
       }
       user.save({
         new: true,
         safe: true
-      }, function(err, user) {
+      }, (err, {list}) => {
         if (err) return console.log(err)
-        res.json(user.list)
+        res.json(list)
       })
     })
   })

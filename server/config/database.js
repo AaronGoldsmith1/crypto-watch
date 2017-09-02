@@ -47,10 +47,10 @@ function fetchData() {
 }
 
 mongoose.connect(dbUri);
-mongoose.connection.on('connected', function() {
-  console.log('Mongoose default connection open to ' + dbUri);
+mongoose.connection.on('connected', () => {
+  console.log(`Mongoose default connection open to ${dbUri}`);
   fetchData()
-  const job = new CronJob('00 * * * * *', function() {
+  const job = new CronJob('00 * * * * *', () => {
     console.log('cronjob running...')
     fetchData()
   }, null, true, 'America/Los_Angeles')

@@ -4,17 +4,17 @@ angular.module('CryptoWatch')
 listController.$inject = ['$scope', 'ListRepo']
 
 function listController($scope, ListRepo) {
-  var self = this;
+  const self = this;
 
-  self.removeCoinFromList = function(coin) {
-    ListRepo.removeCoin(self.user._id, coin._id).then(function(res) {
-      var coinToRemove = _.indexOf(self.list, coin)
+  self.removeCoinFromList = coin => {
+    ListRepo.removeCoin(self.user._id, coin._id).then(res => {
+      const coinToRemove = _.indexOf(self.list, coin);
       self.list.splice(coinToRemove, 1)
     })
   }
 
-  self.addCoinToList = function(coin) {
-    ListRepo.addCoin(self.user._id, coin._id).then(function(res) {
+  self.addCoinToList = coin => {
+    ListRepo.addCoin(self.user._id, coin._id).then(res => {
       self.list.push(coin)
     })
   }
@@ -23,15 +23,15 @@ function listController($scope, ListRepo) {
   //   self.list = res.data;
   // });
 
-  ListRepo.get('59938d9aa1685101dbc72c9d').then(function(data) {
+  ListRepo.get('59938d9aa1685101dbc72c9d').then(data => {
     console.log(data)
     $scope.coins = data.data;
   })
 
-  $scope.getSuggestions = _.debounce(function() {
+  $scope.getSuggestions = _.debounce(() => {
     console.log("Searching for ", $scope.currentModel);
-    var searchTerm = $scope.currentModel;
-    ListRepo.search(searchTerm).then(function(data) {
+    const searchTerm = $scope.currentModel;
+    ListRepo.search(searchTerm).then(data => {
       console.log("Search results for", searchTerm, data.data.length)
       $scope.suggestions = data.data;
     })
